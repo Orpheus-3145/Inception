@@ -1,0 +1,4 @@
+FROM debian:bullseye
+RUN 'echo' 'halooo' '>/usr/test.echo'
+VOLUME /volume_test
+
