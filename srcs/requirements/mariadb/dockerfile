@@ -7,5 +7,7 @@ RUN apt update && \
 
 VOLUME /data_test
 
+COPY setup_maria.sh /usr/sbin/
+
 # ENTRYPOINT ["service", "mariadb", "start"]
 ENTRYPOINT ["bash"]

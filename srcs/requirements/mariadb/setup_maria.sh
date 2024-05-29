@@ -18,12 +18,12 @@
 # #EXIT;
 
 #!/bin/bash
-is_running=systemctl status mariadb | grep "Active: active (running)" | wc -l
+# is_running=`service mariadb status | grep "Active: active (running)" | wc -l`
 
-echo "is running: " $is_running
+# echo "is running: " $is_running
 
-if [is_running==0 ]; then
-    systemctl start mariadb
+if [ `service mariadb status` -eq "MariaDB is stopped.." ]; then
+    service mariadb start
 fi
 
-mariadbd
+/usr/sbin/mysqld
