@@ -2,9 +2,10 @@ FROM debian:bullseye
 
 RUN apt update && \
     apt upgrade -y && \
-    apt install mariadb-server -y
+    apt install mariadb-server -y && \
+    service mariadb start
 
 VOLUME /data_test
 
-ENTRYPOINT ["service", "mariadb", "start"]
+# ENTRYPOINT ["service", "mariadb", "start"]
 ENTRYPOINT ["bash"]
