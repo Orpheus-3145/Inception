@@ -18,6 +18,12 @@
 # #EXIT;
 
 #!/bin/bash
+is_running=systemctl status mariadb | grep "Active: active (running)" | wc -l
 
-sudo systemctl status mariadb | grep "Active: active (running)" | wc -l
-if
+echo "is running: " $is_running
+
+if [is_running==0 ]; then
+    systemctl start mariadb
+fi
+
+mariadbd
