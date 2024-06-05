@@ -22,8 +22,4 @@
 
 # echo "is running: " $is_running
 
-if [ `service mariadb status` -eq "MariaDB is stopped.." ]; then
-    service mariadb start
-fi
-
 /usr/sbin/mariadbd
