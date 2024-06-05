@@ -1,13 +1,20 @@
 FROM debian:bullseye
 
-RUN apt update && \
-    apt upgrade -y && \
-    apt install mariadb-server -y && \
-    service mariadb start
 
 VOLUME /data_test
 
 COPY setup_maria.sh /usr/sbin/
 
+EXPOSE 3306
+
+RUN apt update && \
+    apt upgrade -y && \
+    apt install mariadb-server -y && \
+    mkdir -p /var/run/mysqld && \
+    chown -R mysql:mysql /var/run/mysqld
+# && \
+#    chmod 744 /usr/sbin/setup_maria.sh && /usr/sbin/setup_maria.sh
+
 # ENTRYPOINT ["service", "mariadb", "start"]
 ENTRYPOINT ["bash"]
+# ENTRYPOINT ["mysqld"]
