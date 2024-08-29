@@ -2,13 +2,18 @@ version: "3"
 
 services:
   mariadb:
-    container_name: mdb
+    container_name: mdb_incp
     build:
       context: ./requirements/mariadb
-      dockerfile: dockerfile
-    image: mdb
-    env_file:
-      - .env
+      dockerfile: Dockerfile
+    image: mdb_compose_i
+    # env_file:
+    #   - .env
+    environment:
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     restart: always
     # volumes:
     #   - db:/var/data/mysql_db
