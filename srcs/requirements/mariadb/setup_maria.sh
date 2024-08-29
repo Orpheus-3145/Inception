@@ -1,25 +1,17 @@
-# sudo apt update && apt upgrade
-# apt install mariadb-server -y
-
-# # look at: https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04
-# sudo systemctl start mariadb.service
-# sudo systemctl enable mariadb.service
-
-# # run secure installation
-# sudo mysql_secure_installation
-
-# # check if everything is fine with mariah
-# sudo systemctl status mariadb
-
-# # Creating an Administrative User that Employs Password Authentication, probabily not needed
-# #sudo mariadb
-# #GRANT ALL ON *.* TO '<ADMIN>'@'localhost' IDENTIFIED BY '<PASSWORD>' WITH GRANT OPTION;
-# #FLUSH PRIVILEGES;
-# #EXIT;
-
 #!/bin/bash
-# is_running=`service mariadb status | grep "Active: active (running)" | wc -l`
+# look at: https://www.digitalocean.com/community/tutorials/how-to-install-mariadb-on-ubuntu-20-04
 
-# echo "is running: " $is_running
+if [[`service mariadb status | wc -l` == 1]]
+    echo "mariadb is not running"
+    exit 1
+fi
 
-/usr/sbin/mariadbd
+# run secure installation
+mysql_secure_installation
+
+# Creating an Administrative User that Employs Password Authentication, probabily not needed
+mysql -u root -e "CREATE DATABASE IF NOT EXISTS $MYSQL_DB;"
+mysql -u root -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
+mysql -u root -e "GRANT ALL ON $MYSQL_DB.* TO '$MYSQL_USER'@'%';"
+mysql -u root -e "FLUSH PRIVILEGES;"
+mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PASSWORD');"

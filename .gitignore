@@ -1,0 +1,31 @@
+# Ignora i volumi Docker montati su host
+volumes/
+db_data/
+wp_data/
+nginx_data/
+
+# Ignora i log e file temporanei
+logs/
+*.log
+tmp/
+*.tmp
+
+.env
+
+# Ignora i file di configurazione di MariaDB/WordPress generati dinamicamente
+**/wp-config.php
+**/wp-content/uploads/
+**/wp-content/upgrade/
+**/wp-content/cache/
+**/wp-content/backup-*/  # Backup di WordPress
+
+# Ignora le configurazioni e file di ambiente IDE/editor
+.vscode/
+.idea/
+*.code-workspace
+*.sublime-workspace
+*.sublime-project
+
+# Ignora i file di sistema
+.DS_Store
+Thumbs.db
