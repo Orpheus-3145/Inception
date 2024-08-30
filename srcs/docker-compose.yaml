@@ -7,12 +7,8 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    environment:
-      - HOME=${HOME}
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    env_file:
+        - .env
     restart: always
     expose:
       - 3306
@@ -26,9 +22,12 @@ services:
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-    environment:
-      - HOME=${HOME}
-      - USER=${USER}
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
+    env_file:
+        - .env
+    # environment:
+    #   - DOMAIN_NAME=${DOMAIN_NAME}
     restart: always
     expose:
       - 443
