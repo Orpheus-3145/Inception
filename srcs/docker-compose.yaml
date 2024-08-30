@@ -2,33 +2,49 @@ version: "3"
 
 services:
   mariadb:
+    image: mdb_compose_i
     container_name: mdb_incp
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
-    image: mdb_compose_i
-    # env_file:
-    #   - .env
     environment:
-      - MYSQL_DB=${MYSQL_DB}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - HOME=${HOME}
+      # - MYSQL_DB=${MYSQL_DB}
+      # - MYSQL_USER=${MYSQL_USER}
+      # - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      # - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     restart: always
-    # volumes:
-    #   - db:/var/data/mysql_db
     expose:
       - 3306
-    # networks:
-    #   - intra
+    networks:
+      - inception_net
+    volumes:
+      - mariadb_vol:${HOME}/data/mariadb
+  nginx:
+    image: nginx_compose_i
+    container_name: nginx_incp
+    build:
+      context: ./requirements/nginx
+      dockerfile: Dockerfile
+    environment:
+      - HOME=${HOME}
+      - USER=${USER}
+    restart: always
+    expose:
+      - 443
+      - 3306
+    ports:
+      - 443:443
+    networks:
+      - inception_net
+    volumes:
+      - wp_vol:${HOME}/data/wordpress
+    depends_on: 
+      - mariadb
 
+volumes:
+  mariadb_vol:
+  wp_vol:
 
-# volumes:
-#   db:
-#     driver: local
-#     driver_opts:
-#       type: none
-#       device: ${HOME}/data/db
-#       o: bind
-# networks:
-#   my-network:  # Rete personalizzata per connettere i servizi
+networks:
+  inception_net:

@@ -4,6 +4,8 @@ EXPOSE 3306
 
 RUN mkdir -p /var/run/mysqld
 
+RUN mkdir -p $HOME/data/mariadb
+
 RUN apt update && \
 apt upgrade -y && \
 apt install mariadb-server -y
