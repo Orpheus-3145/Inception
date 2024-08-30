@@ -21,5 +21,3 @@ COPY default.conf /etc/nginx/inception.conf
 COPY website/index.html /var/www/fra/html
 
 CMD ["nginx", "-c", "/etc/nginx/inception.conf"]
-#, "-g", "daemon off;"]
-# ENTRYPOINT ["/bin/bash"]

@@ -9,10 +9,10 @@ services:
       dockerfile: Dockerfile
     environment:
       - HOME=${HOME}
-      # - MYSQL_DB=${MYSQL_DB}
-      # - MYSQL_USER=${MYSQL_USER}
-      # - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      # - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DB=${MYSQL_DB}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
     restart: always
     expose:
       - 3306
