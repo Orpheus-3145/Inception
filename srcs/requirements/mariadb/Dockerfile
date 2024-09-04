@@ -16,6 +16,7 @@ COPY setup_maria.sh /usr/sbin/
 
 RUN chmod 744 /usr/sbin/setup_maria.sh
 
+# make it RUN
 ENTRYPOINT ["/usr/sbin/setup_maria.sh"]
 
 CMD ["mysqld"]

@@ -12,7 +12,6 @@ if [[ `service mariadb status | wc -l` == 1 ]]; then
         mysql -u root -e "CREATE USER '$MYSQL_USER'@'%' IDENTIFIED BY '$MYSQL_PASSWORD';"
         mysql -u root -e "GRANT ALL ON $MYSQL_DB.* TO '$MYSQL_USER'@'%';"
         mysql -u root -e "FLUSH PRIVILEGES;"
-        mysql -u root -e "SET PASSWORD FOR 'root'@'localhost' = PASSWORD('$MYSQL_ROOT_PASSWORD');"
 
         touch /var/run/mysqld/.mysql_setup_done
     fi
