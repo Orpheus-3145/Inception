@@ -7,6 +7,12 @@ services:
     build:
       context: ./requirements/mariadb
       dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
+        WP_DB: ${WP_DB}
+        WP_USER: ${WP_USER}
+        WP_PWD: ${WP_PWD}
+        DB_PORT: ${DB_PORT}
     env_file:
         - .env
     restart: always
@@ -16,6 +22,7 @@ services:
       - inception_net
     volumes:
       - mariadb_vol:${HOME}/data/mariadb
+
   nginx:
     image: nginx_compose_i
     container_name: nginx_incp
@@ -26,24 +33,48 @@ services:
         DOMAIN_NAME: ${DOMAIN_NAME}
     env_file:
         - .env
-    # environment:
-    #   - DOMAIN_NAME=${DOMAIN_NAME}
     restart: always
     expose:
       - 443
-      - 3306
+      - 9000
     ports:
       - 443:443
     networks:
       - inception_net
     volumes:
-      - wp_vol:${HOME}/data/wordpress
+      - wordpress_vol:${HOME}/data/wordpress
+    depends_on: 
+      - mariadb
+
+  wordpress:
+    image: wp_compose_i
+    container_name: wp_incp
+    build:
+      context: ./requirements/wordpress
+      dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
+        WP_DB: ${WP_DB}
+        WP_USER: ${WP_USER}
+        WP_PWD: ${WP_PWD}
+        WP_PORT: ${WP_PORT}
+        DB_PORT: ${DB_PORT}
+    env_file:
+        - .env
+    restart: always
+    expose:
+      - 3306
+      - 9000
+    networks:
+      - inception_net
+    volumes:
+      - wordpress_vol:${HOME}/data/wordpress
     depends_on: 
       - mariadb
 
 volumes:
   mariadb_vol:
-  wp_vol:
+  wordpress_vol:
 
 networks:
   inception_net:
