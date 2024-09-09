@@ -42,7 +42,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - wordpress_vol:${HOME}/data/wordpress
+      - wordpress_vol:/var/www/html
     depends_on: 
       - mariadb
 
@@ -68,7 +68,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - wordpress_vol:${HOME}/data/wordpress
+      - wordpress_vol:/var/www/html
     depends_on: 
       - mariadb
 

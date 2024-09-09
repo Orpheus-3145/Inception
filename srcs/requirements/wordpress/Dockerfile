@@ -36,6 +36,8 @@ RUN apt update && \
 
 COPY php.ini /etc/php/
 
+COPY www.conf /etc/php/
+
 COPY wp-config-inception.php /var/www/html/wp-config.php
 
 COPY setup_wp.sh /usr/sbin/
@@ -46,6 +48,6 @@ RUN /usr/sbin/setup_wp.sh
 
 RUN mkdir -p $HOME/data/wordpress
 
-# ENTRYPOINT ["service", "php7.4-fpm", "start"]
+ENTRYPOINT ["service", "php7.4-fpm", "start"]
 
-ENTRYPOINT [ "/bin/bash" ]  
+# ENTRYPOINT [ "/bin/bash" ]  
