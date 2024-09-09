@@ -10,7 +10,7 @@ logs/
 tmp/
 *.tmp
 
-.env
+*.env
 
 # Ignora i file di configurazione di MariaDB/WordPress generati dinamicamente
 **/wp-config.php
