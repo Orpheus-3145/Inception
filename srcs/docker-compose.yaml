@@ -9,10 +9,11 @@ services:
       dockerfile: Dockerfile
       args:
         DOMAIN_NAME: ${DOMAIN_NAME}
-        WP_DB: ${WP_DB}
+        DB_NAME: ${DB_NAME}
         WP_USER: ${WP_USER}
         WP_PWD: ${WP_PWD}
         DB_PORT: ${DB_PORT}
+        DB_ROOT_PWD: ${DB_ROOT_PWD}
     env_file:
         - .env
     restart: always
@@ -21,7 +22,8 @@ services:
     networks:
       - inception_net
     volumes:
-      - mariadb_vol:${HOME}/data/mariadb
+      - mariadb_vol:/var/lib/mysq
+    hostname: mariadb
 
   nginx:
     image: nginx_compose_i
@@ -44,7 +46,8 @@ services:
     volumes:
       - wordpress_vol:/var/www/html
     depends_on: 
-      - mariadb
+      - wordpress
+    hostname: nginx
 
   wordpress:
     image: wp_compose_i
@@ -54,11 +57,15 @@ services:
       dockerfile: Dockerfile
       args:
         DOMAIN_NAME: ${DOMAIN_NAME}
-        WP_DB: ${WP_DB}
+        DB_NAME: ${DB_NAME}
         WP_USER: ${WP_USER}
         WP_PWD: ${WP_PWD}
         WP_PORT: ${WP_PORT}
         DB_PORT: ${DB_PORT}
+        WP_ADMIN_USER: ${WP_ADMIN_USER}
+        WP_ADMIN_PWD: ${WP_ADMIN_PWD}
+        WP_ADMIN_EMAIL: ${WP_ADMIN_EMAIL}
+        DB_HOST: ${DB_HOST}
     env_file:
         - .env
     restart: always
@@ -71,6 +78,7 @@ services:
       - wordpress_vol:/var/www/html
     depends_on: 
       - mariadb
+    hostname: wordpress
 
 volumes:
   mariadb_vol:
