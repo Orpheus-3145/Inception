@@ -23,13 +23,9 @@ RUN apt update && \
 
 COPY www.conf /etc/php/7.4/fpm/pool.d/
 
-COPY wp-config-inception.php /var/www/html/wp-config.php
-
 COPY setup_wp.sh /usr/sbin/
 
 RUN chmod 744 /usr/sbin/setup_wp.sh
-
-RUN /usr/sbin/setup_wp.sh
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
