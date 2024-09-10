@@ -6,7 +6,7 @@ define( 'DB_USER', getenv('WP_USER') );
 
 define( 'DB_PASSWORD', getenv('WP_PWD') );
 
-define('DB_HOST', getenv("DB_HOST"));
+define('DB_HOST', getenv("DB_HOST") . ':' . getenv('DB_PORT') );
 // define( 'DB_HOST', getenv('DOMAIN_NAME') . ':' . getenv('DB_PORT') );
 
 define( 'DB_CHARSET', 'utf8' );
