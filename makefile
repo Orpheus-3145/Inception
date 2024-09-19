@@ -1,4 +1,4 @@
-COMPOSE=docker-compose -f srcs/docker-compose.yaml
+COMPOSE=docker compose -f srcs/docker-compose.yaml
 
 all: build
 
@@ -8,13 +8,12 @@ run:
 build:
 	${COMPOSE} build
 
-# man_run:
-# 	docker build -t nginx_man_i srcs/requirements/nginx
-# 	docker run -it -p 443:443 --name nginx_man nginx_man_i
-
-# man_stop:
-# 	docker stop nginx_man
-# 	docker container rm -f nginx_man
+run_scratch:
+	sudo rm -rf ${HOME}/data/db
+	sudo rm -rf ${HOME}/data/wp
+	mkdir -p ${HOME}/data/db
+	mkdir -p ${HOME}/data/wp
+	$(COMPOSE) up -d --no-deps --build --force-recreate
 
 down:
 	${COMPOSE} down

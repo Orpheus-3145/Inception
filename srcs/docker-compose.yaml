@@ -1,5 +1,3 @@
-version: "2.4"
-
 services:
   mariadb:
     image: mdb_compose_i
@@ -15,7 +13,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - mariadb_vol:/var/lib/mysq
+      - mariadb_vol:/var/lib/mysql
 
   wordpress:
     image: wp_compose_i
@@ -23,6 +21,8 @@ services:
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
+      args:
+        DOMAIN_NAME: ${DOMAIN_NAME}
     env_file:
         - .env
     restart: always
@@ -61,7 +61,19 @@ services:
 
 volumes:
   mariadb_vol:
+    driver: local   #volume is located locally
+    driver_opts:
+      o: bind       #binding the volume
+      type: none    #setting the type of volume
+      device: ${HOME}/data/db
+
   wordpress_vol:
+    driver: local     #volume is located locally
+    driver_opts:
+      o: bind         #binding the volume
+      type: none      #setting the type of volume
+      device: ${HOME}/data/wp
 
 networks:
   inception_net:
+    external: false 
