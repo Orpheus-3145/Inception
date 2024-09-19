@@ -1,6 +1,6 @@
 services:
   mariadb:
-    image: mdb_compose_i
+    image: mdb_img
     container_name: mariadb
     build:
       context: ./requirements/mariadb
@@ -16,13 +16,13 @@ services:
       - mariadb_vol:/var/lib/mysql
 
   wordpress:
-    image: wp_compose_i
+    image: wp_img
     container_name: wordpress
     build:
       context: ./requirements/wordpress
       dockerfile: Dockerfile
-      args:
-        DOMAIN_NAME: ${DOMAIN_NAME}
+      # args:
+      #   DOMAIN_NAME: ${DOMAIN_NAME}
     env_file:
         - .env
     restart: always
@@ -37,13 +37,13 @@ services:
       - mariadb
 
   nginx:
-    image: nginx_compose_i
+    image: nginx_img
     container_name: nginx
     build:
       context: ./requirements/nginx
       dockerfile: Dockerfile
-      args:
-        DOMAIN_NAME: ${DOMAIN_NAME}
+      # args:
+      #   DOMAIN_NAME: ${DOMAIN_NAME}
     env_file:
         - .env
     restart: always

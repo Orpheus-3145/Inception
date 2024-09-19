@@ -1,29 +1,37 @@
 COMPOSE=docker compose -f srcs/docker-compose.yaml
+VOL_WP_PATH = ${HOME}/data/wp
+VOL_DB_PATH = ${HOME}/data/db
 
 all: build
 
 run: 
-	${COMPOSE} up -d
+	@mkdir -p $(VOL_WP_PATH)
+	@mkdir -p $(VOL_DB_PATH)
+	@${COMPOSE} up -d
 
 build:
-	${COMPOSE} build
+	@mkdir -p $(VOL_WP_PATH)
+	@mkdir -p $(VOL_DB_PATH)
+	@${COMPOSE} build
 
 run_scratch:
-	sudo rm -rf ${HOME}/data/db
-	sudo rm -rf ${HOME}/data/wp
-	mkdir -p ${HOME}/data/db
-	mkdir -p ${HOME}/data/wp
-	$(COMPOSE) up -d --no-deps --build --force-recreate
+	@rm -rf $(VOL_WP_PATH)
+	@rm -rf $(VOL_DB_PATH)
+	@mkdir -p $(VOL_WP_PATH)
+	@mkdir -p $(VOL_DB_PATH)
+	@$(COMPOSE) up -d --no-deps --build --force-recreate
 
-re: clean run
+re: fclean run
 	
 down:
-	${COMPOSE} down
+	@${COMPOSE} down
 
 prune:
-	docker system prune
+	@docker system prune -a
 
 clean:
-	${COMPOSE} down -v --rmi all
+	@${COMPOSE} down -v --rmi all
 
 fclean: clean prune
+
+.PHONY: all run build run_scratch re down clean fclean
