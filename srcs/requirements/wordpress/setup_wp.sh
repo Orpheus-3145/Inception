@@ -2,7 +2,7 @@
 
 if [ ! -e /etc/php/7.4/.php_done ]; then
     cd /var/www/html
-
+	echo "=================================$DOMAIN_NAME============================================"
     chown -R www-data:www-data /var/www/html	
     # Download the WordPress core files
 	wp core download --allow-root

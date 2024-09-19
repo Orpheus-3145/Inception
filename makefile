@@ -15,6 +15,8 @@ run_scratch:
 	mkdir -p ${HOME}/data/wp
 	$(COMPOSE) up -d --no-deps --build --force-recreate
 
+re: clean run
+	
 down:
 	${COMPOSE} down
 

@@ -1,4 +1,4 @@
-DOMAIN_NAME=localhost
+DOMAIN_NAME=faru.42.fr
 DB_HOST=mariadb
 DB_NAME=inception
 DB_PORT=3306
