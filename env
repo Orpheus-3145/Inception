@@ -1,0 +1,12 @@
+DOMAIN_NAME=localhost
+WP_DB=inception
+WP_USER=wp_user
+WP_PWD=wp_314_incp_42
+DB_PORT=3306
+WP_PORT=9000
+# WP_ADMIN_USER=pro
+# WP_ADMIN_PASSWORD=great
+# WP_ADMIN_EMAIL=pro@mail.com
+# WP_NORMAL_USER=noob
+# WP_NORMAL_USER_PASSWORD=crappy
+# WP_NORMAL_USER_EMAIL=noob@mail.com
