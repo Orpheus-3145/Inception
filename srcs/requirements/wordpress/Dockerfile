@@ -3,6 +3,9 @@ FROM debian:bullseye
 EXPOSE 9000
 EXPOSE 3306
 
+ARG DOMAIN_NAME
+ENV DOMAIN_NAME=$DOMAIN_NAME
+
 RUN apt update && \
     apt upgrade -y && \
     apt install -y mariadb-client \
@@ -18,8 +21,7 @@ RUN apt update && \
     php-mysql \
     php-bcmath \
     unzip \
-    wget \
-    nano
+    wget
 
 COPY www.conf /etc/php/7.4/fpm/pool.d/
 
@@ -33,7 +35,7 @@ RUN chmod +x wp-cli.phar
 
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html/$DOMAIN_NAME
 
 RUN mkdir -p /run/php
 

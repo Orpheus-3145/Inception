@@ -3,11 +3,14 @@ FROM debian:bullseye
 EXPOSE 443
 EXPOSE 9000
 
+ARG DOMAIN_NAME
+ENV DOMAIN_NAME=$DOMAIN_NAME
+
 RUN apt update && \
 apt upgrade -y && \
 apt install -y nginx openssl
 
-RUN mkdir -p /var/www/html
+RUN mkdir -p /var/www/html/$DOMAIN_NAME
 
 RUN mkdir -p /etc/nginx/ssl
 
