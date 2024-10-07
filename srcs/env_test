@@ -1,11 +1,14 @@
 DOMAIN_NAME=faru.42.fr
+
 DB_HOST=mariadb
-DB_NAME=inception
 DB_PORT=3306
+DB_NAME=inception
 DB_ROOT_PWD=wwpp_425_tion_31
+
 WP_USER=wp_user
 WP_USER_PWD=wp_314_incp_42
-WP_ADMIN_USER=faru
+WP_USER_EMAIL=francesco1896@gmail.com
+
+WP_ADMIN=faru
 WP_ADMIN_PWD=9191_fr_3881
 WP_ADMIN_EMAIL=faru@student.codam.nl
-WP_USER_EMAIL=francesco1896@gmail.com

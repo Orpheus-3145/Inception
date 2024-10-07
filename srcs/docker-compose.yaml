@@ -1,6 +1,5 @@
 services:
   mariadb:
-    image: mariadb
     container_name: mariadb
     build:
       context: ./requirements/mariadb
@@ -16,7 +15,6 @@ services:
       - mariadb_vol:/var/lib/mysql
 
   wordpress:
-    image: wordpress
     container_name: wordpress
     build:
       context: ./requirements/wordpress
@@ -37,7 +35,6 @@ services:
       - mariadb
 
   nginx:
-    image: nginx
     container_name: nginx
     build:
       context: ./requirements/nginx
@@ -61,19 +58,20 @@ services:
 
 volumes:
   mariadb_vol:
-    driver: local   #volume is located locally
+    driver: local
     driver_opts:
-      o: bind       #binding the volume
-      type: none    #setting the type of volume
+      o: bind
+      type: none
       device: ${HOME}/data/db
 
   wordpress_vol:
-    driver: local     #volume is located locally
+    driver: local
     driver_opts:
-      o: bind         #binding the volume
-      type: none      #setting the type of volume
+      o: bind
+      type: none
       device: ${HOME}/data/wp
 
 networks:
   inception_net:
-    external: false 
+    external: false
+    

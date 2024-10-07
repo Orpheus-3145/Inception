@@ -20,25 +20,22 @@ RUN apt update && \
     php-xml-util \
     php-mysql \
     php-bcmath \
-    unzip \
-    wget
-
-COPY www.conf /etc/php/7.4/fpm/pool.d/
-
-COPY setup_wp.sh /usr/sbin/
-
-RUN chmod 744 /usr/sbin/setup_wp.sh
-
-RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
-
-RUN chmod +x wp-cli.phar
-
-RUN mv wp-cli.phar /usr/local/bin/wp
+    wget \
+    netcat
 
 RUN mkdir -p /var/www/html/$DOMAIN_NAME
 
 RUN mkdir -p /run/php
 
+COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
+
+# COPY conf/wp-config.php /var/www/html/$DOMAIN_NAME/
+
+COPY setup/setup_wp.sh /usr/sbin/
+
+RUN chmod 744 /usr/sbin/setup_wp.sh
+
 ENTRYPOINT [ "/usr/sbin/setup_wp.sh" ]
 
 CMD ["/usr/sbin/php-fpm7.4", "-F"]
+    
