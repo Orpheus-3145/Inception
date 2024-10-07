@@ -29,8 +29,6 @@ RUN mkdir -p /run/php
 
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
 
-# COPY conf/wp-config.php /var/www/html/$DOMAIN_NAME/
-
 COPY setup/setup_wp.sh /usr/sbin/
 
 RUN chmod 744 /usr/sbin/setup_wp.sh

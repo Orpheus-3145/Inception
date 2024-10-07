@@ -9,7 +9,6 @@ if [ ! -e /var/www/html/$DOMAIN_NAME/.wordpress_setup_done ]; then
 
     chown -R www-data:www-data /var/www/html/$DOMAIN_NAME
 
-	# echo ciao >>output
 	sleep 10
 	until nc -z $DB_HOST $DB_PORT; do echo 'Waiting db...' >>output && sleep 5; done
     # Download the WordPress core files
